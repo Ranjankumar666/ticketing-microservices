@@ -1,0 +1,62 @@
+apiVersion: skaffold/v2beta17
+kind: Config
+metadata:
+    name: ticketing
+
+deploy:
+    kubectl:
+        manifests:
+            - ./infra/k8s/*
+
+build:
+    local:
+        push: false
+    artifacts:
+        - image: ranjankumar2000/auth
+          context: auth
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: src/**/*.ts
+        - image: ranjankumar2000/client
+          context: client
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: "**/*.js"
+        - image: ranjankumar2000/tickets
+          context: tickets
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: src/**/*.ts
+        - image: ranjankumar2000/orders
+          context: orders
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: src/**/*.ts
+        - image: ranjankumar2000/expiration
+          context: expiration
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: src/**/*.ts
+        - image: ranjankumar2000/payments
+          context: payments
+          docker:
+              dockerfile: Dockerfile
+          sync:
+              manual:
+                  - dest: .
+                    src: src/**/*.ts

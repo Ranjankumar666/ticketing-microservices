@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: orders-mongo
+spec:
+    selector:
+        matchLabels:
+            app: orders-mongo
+    template:
+        metadata:
+            labels:
+                app: orders-mongo
+        spec:
+            containers:
+                - name: orders-mongo
+                  image: mongo@sha256:9bed7cae49c95e0294775efe35c867094d69d844167a79194be63baf7e032328
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: orders-mongo-srv
+spec:
+    selector:
+        app: orders-mongo
+    ports:
+        - port: 27017
+          targetPort: 27017

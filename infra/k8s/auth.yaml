@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+    name: auth
+spec:
+    replicas: 1
+    selector:
+        matchLabels:
+            app: auth
+    template:
+        metadata:
+            labels:
+                app: auth
+        spec:
+            containers:
+                - name: auth
+                  image: ranjankumar2000/auth
+                  env:
+                      - name: JWT_KEY
+                        valueFrom:
+                            secretKeyRef:
+                                name: env-vars
+                                key: jwt-key
+                      - name: SALT_ROUNDS
+                        value: "13"
+                      - name: DB_URL
+                        value: "mongodb://auth-mongo-srv:27017/auth"
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+    name: auth-srv
+spec:
+    selector:
+        app: auth
+    ports:
+        - port: 3000
+          targetPort: 3000
+          name: auth
+          protocol: TCP
