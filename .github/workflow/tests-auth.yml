@@ -1,4 +1,4 @@
-name: Tests-Auth
+name: tests-auth
 on:
   pull_request
 
@@ -7,5 +7,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v2
-      - run: echo "Running the auth services tests"
       - run: cd auth && npm install && npm run test:ci
