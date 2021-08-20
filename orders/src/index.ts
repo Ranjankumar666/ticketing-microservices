@@ -10,7 +10,7 @@ import {
 } from "./events/listeners";
 
 const start = async () => {
-    console.log("Starting the Orders server");
+    console.log("Starting the Orders service");
     await mongoose.connect(process.env.DB_URL!, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
