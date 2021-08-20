@@ -3,7 +3,8 @@
     "main": "./dist/index.js",
     "scripts": {
         "dev": "ts-node-dev --poll ./src/index",
-        "test": "jest --watchAll --no-cache"
+        "test": "jest --watchAll --no-cache",
+        "test:ci": "jest"
     },
     "jest": {
         "preset": "ts-jest",
